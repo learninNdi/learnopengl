@@ -24,11 +24,11 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 // vertex and fragment shader path
-const char *vertexLightingSource = "src/2.lighting/2.basic_lighting/2.3.basic_lighting_exercise1/colors.vs";
-const char *fragmentLightingSource = "src/2.lighting/2.basic_lighting/2.3.basic_lighting_exercise1/colors.fs";
+const char *vertexLightingSource = "src/2.lighting/3.materials/3.2.materials_exercise1/colors.vs";
+const char *fragmentLightingSource = "src/2.lighting/3.materials/3.2.materials_exercise1/colors.fs";
 
-const char *vertexLightCubeSource = "src/2.lighting/2.basic_lighting/2.3.basic_lighting_exercise1/light_cube.vs";
-const char *fragmentLightCubeSource = "src/2.lighting/2.basic_lighting/2.3.basic_lighting_exercise1/light_cube.fs";
+const char *vertexLightCubeSource = "src/2.lighting/3.materials/3.2.materials_exercise1/light_cube.vs";
+const char *fragmentLightCubeSource = "src/2.lighting/3.materials/3.2.materials_exercise1/light_cube.fs";
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -187,18 +187,21 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // change the light's position value over time (can be done anywhere in the
-        // render loop actually, but try to do it at least before using the light
-        // source positions)
-        lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-        lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
-
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
-        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        lightingShader.setVec3("lightPos", lightPos);
+        lightingShader.setVec3("light.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
+
+        // light properties
+        lightingShader.setVec3("light.ambient", 1.0f, 1.0f, 1.0f); // note that all light colors are set at full intensity
+        lightingShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+        // material properties
+        lightingShader.setVec3("material.ambient", 0.0f, 0.1f, 0.06f);
+        lightingShader.setVec3("material.diffuse", 0.0f, 0.50980392f, 0.50980392f);
+        lightingShader.setVec3("material.specular", 0.50196078f, 0.50196078f, 0.50196078f);
+        lightingShader.setFloat("material.shininess", 32.0f);
 
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
                                                 (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
