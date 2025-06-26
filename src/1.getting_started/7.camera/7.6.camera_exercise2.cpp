@@ -10,7 +10,7 @@
 #include "learnopengl/shader_m.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/stb_image.h"
+#include <stb_image.h>
 #include <learnopengl/filesystem.h>
 #include <learnopengl/camera.h>
 
@@ -30,13 +30,13 @@ const char *fragmentShaderSource = "src/1.getting_started/7.camera/7.1.camera_ci
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float lastX = SCR_WIDTH/2;
-float lastY = SCR_HEIGHT/2;
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // timing
-float deltaTime = 0.0f;     // time between current frame and last frame
-float lastFrame = 0.0f;     // time of last frame
+float deltaTime = 0.0f; // time between current frame and last frame
+float lastFrame = 0.0f; // time of last frame
 
 int main()
 {
@@ -121,8 +121,7 @@ int main()
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f
-    };
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f};
 
     glm::vec3 cubePositions[] = {
         glm::vec3(0.0f, 0.0f, 0.0f),
@@ -247,8 +246,8 @@ int main()
 
         ourShader.use();
 
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), 
-                            (float)SCR_WIDTH/(float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+                                                (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         ourShader.setMat4("projection", projection);
 
         const float radius = 10.0f;
@@ -257,12 +256,11 @@ int main()
         glm::mat4 view = calculate_lookAt_matrix(
             glm::vec3(camX, 0.0f, camZ),
             glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 1.0f, 0.0f)
-        );
+            glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("view", view);
 
         glBindVertexArray(VAO);
-        for(unsigned int i = 0; i < 10; i++) 
+        for (unsigned int i = 0; i < 10; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
@@ -308,12 +306,12 @@ void processInput(GLFWwindow *window)
         camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
-void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) 
+void mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
 {
     float xpos = static_cast<float>(xposIn);
     float ypos = static_cast<float>(yposIn);
 
-    if(firstMouse)
+    if (firstMouse)
     {
         lastX = xpos;
         lastY = ypos;
@@ -321,7 +319,7 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
     }
 
     float xOffset = xpos - lastX;
-    float yOffset = lastY - ypos;       // reversed: y ranges bottom to top
+    float yOffset = lastY - ypos; // reversed: y ranges bottom to top
     lastX = xpos;
     lastY = ypos;
 
@@ -350,19 +348,19 @@ glm::mat4 calculate_lookAt_matrix(glm::vec3 position, glm::vec3 target, glm::vec
 
     // create translation and rotation matrix
     // in glm we access elements as mat[col][row] due to column-major layout
-    glm::mat4 translation = glm::mat4(1.0f);    // identity matrix by default
-    translation[3][0] = -position.x;            // fourth column, first row
+    glm::mat4 translation = glm::mat4(1.0f); // identity matrix by default
+    translation[3][0] = -position.x;         // fourth column, first row
     translation[3][1] = -position.y;
     translation[3][2] = -position.z;
 
     glm::mat4 rotation = glm::mat4(1.0f);
-    rotation[0][0] = xaxis.x;                   // first column, first row
+    rotation[0][0] = xaxis.x; // first column, first row
     rotation[1][0] = xaxis.y;
     rotation[2][0] = xaxis.z;
-    rotation[0][1] = yaxis.x;                   // first column, second row
+    rotation[0][1] = yaxis.x; // first column, second row
     rotation[1][1] = yaxis.y;
     rotation[2][1] = yaxis.z;
-    rotation[0][2] = zaxis.x;                   // first column, third row
+    rotation[0][2] = zaxis.x; // first column, third row
     rotation[1][2] = zaxis.y;
     rotation[2][2] = zaxis.z;
 

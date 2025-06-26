@@ -24,11 +24,11 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 // vertex and fragment shader path
-const char *vertexLightingSource = "src/2.lighting/1.colors/1.colors.vs";
-const char *fragmentLightingSource = "src/2.lighting/1.colors/1.colors.fs";
+const char *vertexLightingSource = "src/2.lighting/2.basic_lighting/2.0.basic_lighting_ambient/colors.vs";
+const char *fragmentLightingSource = "src/2.lighting/2.basic_lighting/2.0.basic_lighting_ambient/colors.fs";
 
-const char *vertexLightCubeSource = "src/2.lighting/1.colors/1.light_cube.vs";
-const char *fragmentLightCubeSource = "src/2.lighting/1.colors/1.light_cube.fs";
+const char *vertexLightCubeSource = "src/2.lighting/2.basic_lighting/2.0.basic_lighting_ambient/light_cube.vs";
+const char *fragmentLightCubeSource = "src/2.lighting/2.basic_lighting/2.0.basic_lighting_ambient/light_cube.fs";
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));

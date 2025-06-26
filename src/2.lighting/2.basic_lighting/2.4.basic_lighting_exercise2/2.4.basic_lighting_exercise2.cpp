@@ -24,11 +24,11 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 // vertex and fragment shader path
-const char *vertexLightingSource = "src/2.lighting/1.colors/1.colors.vs";
-const char *fragmentLightingSource = "src/2.lighting/1.colors/1.colors.fs";
+const char *vertexLightingSource = "src/2.lighting/2.basic_lighting/2.4.basic_lighting_exercise2/colors.vs";
+const char *fragmentLightingSource = "src/2.lighting/2.basic_lighting/2.4.basic_lighting_exercise2/colors.fs";
 
-const char *vertexLightCubeSource = "src/2.lighting/1.colors/1.light_cube.vs";
-const char *fragmentLightCubeSource = "src/2.lighting/1.colors/1.light_cube.fs";
+const char *vertexLightCubeSource = "src/2.lighting/2.basic_lighting/2.4.basic_lighting_exercise2/light_cube.vs";
+const char *fragmentLightCubeSource = "src/2.lighting/2.basic_lighting/2.4.basic_lighting_exercise2/light_cube.fs";
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -88,48 +88,48 @@ int main()
     // -----------------------------------------------------------------
 
     float vertices[] = {
-        // position             // texture
-        -0.5f, -0.5f, -0.5f, // 0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  // 1.0f, 0.0f,
-        0.5f, 0.5f, -0.5f,   // 1.0f, 1.0f,
-        0.5f, 0.5f, -0.5f,   // 1.0f, 1.0f,
-        -0.5f, 0.5f, -0.5f,  // 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, // 0.0f, 0.0f,
+        // position          // normals             // texture
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, // 0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  // 1.0f, 0.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,   // 1.0f, 1.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,   // 1.0f, 1.0f,
+        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  // 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, // 0.0f, 0.0f,
 
-        -0.5f, -0.5f, 0.5f, // 0.0f, 0.0f,
-        0.5f, -0.5f, 0.5f,  // 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,   // 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f,   // 1.0f, 1.0f,
-        -0.5f, 0.5f, 0.5f,  // 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.5f, // 0.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, // 0.0f, 0.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,  // 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,   // 1.0f, 1.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,   // 1.0f, 1.0f,
+        -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,  // 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, // 0.0f, 0.0f,
 
-        -0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f,  // 1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.5f,  // 0.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,   // 1.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,  // 1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, // 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, // 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,  // 0.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,   // 1.0f, 0.0f,
 
-        0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
-        0.5f, 0.5f, -0.5f,  // 1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
-        0.5f, -0.5f, 0.5f,  // 0.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,   // 1.0f, 0.0f,
+        0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,  // 1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, // 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, // 0.0f, 1.0f,
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,  // 0.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,   // 1.0f, 0.0f,
 
-        -0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  // 1.0f, 1.0f,
-        0.5f, -0.5f, 0.5f,   // 1.0f, 0.0f,
-        0.5f, -0.5f, 0.5f,   // 1.0f, 0.0f,
-        -0.5f, -0.5f, 0.5f,  // 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f, // 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, // 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,  // 1.0f, 1.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,   // 1.0f, 0.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,   // 1.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,  // 0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, // 0.0f, 1.0f,
 
-        -0.5f, 0.5f, -0.5f, // 0.0f, 1.0f,
-        0.5f, 0.5f, -0.5f,  // 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f,   // 1.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f,  // 0.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, // 0.0f, 1.0f
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // 0.0f, 1.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  // 1.0f, 1.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,   // 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,   // 1.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,  // 0.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // 0.0f, 1.0f
     };
 
     // generate buffer
@@ -148,8 +148,12 @@ int main()
     // 1. then set the vertex attributes pointers
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
+
+    // normal attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     // second, configure the light's VAO (VBO stays the same;
     // the vertives are the same for the light object which is
@@ -163,7 +167,7 @@ int main()
     // (it's already bound, but we do it again for educational purposes)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 
     // render loop
@@ -187,6 +191,8 @@ int main()
         lightingShader.use();
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("lightPos", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
 
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
                                                 (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);

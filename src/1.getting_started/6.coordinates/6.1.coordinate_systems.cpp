@@ -10,7 +10,7 @@
 #include "learnopengl/shader_s.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/stb_image.h"
+#include <stb_image.h>
 #include <learnopengl/filesystem.h>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -185,8 +185,8 @@ int main()
         // note that we're translating the scene in the reverse direction
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f/600.0f,
-                                0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f,
+                                                0.1f, 100.0f);
 
         unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

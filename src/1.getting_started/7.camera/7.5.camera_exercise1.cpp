@@ -10,7 +10,7 @@
 #include "learnopengl/shader_m.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/stb_image.h"
+#include <stb_image.h>
 #include <learnopengl/filesystem.h>
 #include <learnopengl/camera.h>
 
@@ -29,13 +29,13 @@ const char *fragmentShaderSource = "src/1.getting_started/7.camera/7.1.camera_ci
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float lastX = SCR_WIDTH/2;
-float lastY = SCR_HEIGHT/2;
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // timing
-float deltaTime = 0.0f;     // time between current frame and last frame
-float lastFrame = 0.0f;     // time of last frame
+float deltaTime = 0.0f; // time between current frame and last frame
+float lastFrame = 0.0f; // time of last frame
 
 int main()
 {
@@ -120,8 +120,7 @@ int main()
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f
-    };
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f};
 
     glm::vec3 cubePositions[] = {
         glm::vec3(0.0f, 0.0f, 0.0f),
@@ -246,15 +245,15 @@ int main()
 
         ourShader.use();
 
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), 
-                            (float)SCR_WIDTH/(float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+                                                (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         ourShader.setMat4("projection", projection);
 
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.setMat4("view", view);
 
         glBindVertexArray(VAO);
-        for(unsigned int i = 0; i < 10; i++) 
+        for (unsigned int i = 0; i < 10; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
@@ -298,16 +297,16 @@ void processInput(GLFWwindow *window)
         camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
-    
+
     camera.Position.y = 0.0f;
 }
 
-void mouse_callback(GLFWwindow *window, double xposIn, double yposIn) 
+void mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
 {
     float xpos = static_cast<float>(xposIn);
     float ypos = static_cast<float>(yposIn);
 
-    if(firstMouse)
+    if (firstMouse)
     {
         lastX = xpos;
         lastY = ypos;
@@ -315,7 +314,7 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
     }
 
     float xOffset = xpos - lastX;
-    float yOffset = lastY - ypos;       // reversed: y ranges bottom to top
+    float yOffset = lastY - ypos; // reversed: y ranges bottom to top
     lastX = xpos;
     lastY = ypos;
 

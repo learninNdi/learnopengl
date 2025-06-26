@@ -10,7 +10,7 @@
 #include "learnopengl/shader_m.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/stb_image.h"
+#include <stb_image.h>
 #include <learnopengl/filesystem.h>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -31,16 +31,16 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float lastX = SCR_WIDTH/2;
-float lastY = SCR_HEIGHT/2;
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 float pitch = 0.0f;
 float yaw = -90.0f;
 float fov = 45.0f;
 
 // timing
-float deltaTime = 0.0f;     // time between current frame and last frame
-float lastFrame = 0.0f;     // time of last frame
+float deltaTime = 0.0f; // time between current frame and last frame
+float lastFrame = 0.0f; // time of last frame
 
 int main()
 {
@@ -125,8 +125,7 @@ int main()
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
         -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f
-    };
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f};
 
     glm::vec3 cubePositions[] = {
         glm::vec3(0.0f, 0.0f, 0.0f),
@@ -251,8 +250,8 @@ int main()
 
         ourShader.use();
 
-        glm::mat4 projection = glm::perspective(glm::radians(fov), 
-                            (float)SCR_WIDTH/(float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(fov),
+                                                (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         ourShader.setMat4("projection", projection);
 
         const float radius = 10.0f;
@@ -264,7 +263,7 @@ int main()
         ourShader.setMat4("view", view);
 
         glBindVertexArray(VAO);
-        for(unsigned int i = 0; i < 10; i++) 
+        for (unsigned int i = 0; i < 10; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
@@ -310,9 +309,9 @@ void processInput(GLFWwindow *window)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
-void mouse_callback(GLFWwindow *window, double xpos, double ypos) 
+void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
-    if(firstMouse)
+    if (firstMouse)
     {
         lastX = xpos;
         lastY = ypos;
@@ -320,7 +319,7 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     }
 
     float xOffset = xpos - lastX;
-    float yOffset = lastY - ypos;       // reversed: y ranges bottom to top
+    float yOffset = lastY - ypos; // reversed: y ranges bottom to top
     lastX = xpos;
     lastY = ypos;
 
@@ -333,8 +332,10 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 
     // make sure that when pitch is out of bounds,
     // screen doesn't get flipped
-    if (pitch > 89.0f) pitch = 89.0f;
-    if (pitch < -89.0f) pitch = -89.0f;
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
 
     glm::vec3 front;
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -346,6 +347,8 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
     fov -= (float)yoffset;
-    if(fov < 1.0f) fov = 1.0f;
-    if(fov > 45.0f) fov = 45.0f;
+    if (fov < 1.0f)
+        fov = 1.0f;
+    if (fov > 45.0f)
+        fov = 45.0f;
 }

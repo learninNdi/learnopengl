@@ -6,7 +6,7 @@
 #include "learnopengl/shader_s.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/stb_image.h"
+#include <stb_image.h>
 #include <learnopengl/filesystem.h>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
