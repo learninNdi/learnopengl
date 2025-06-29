@@ -26,11 +26,11 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 // vertex and fragment shader path
-const char *vertexLightingSource = "src/2.lighting/4.lighting_maps/4.1.lighting_maps_diffuse_map/colors.vs";
-const char *fragmentLightingSource = "src/2.lighting/4.lighting_maps/4.1.lighting_maps_diffuse_map/colors.fs";
+const char *vertexLightingSource = "src/2.lighting/4.lighting_maps/4.3.lighting_maps_exercise2/colors.vs";
+const char *fragmentLightingSource = "src/2.lighting/4.lighting_maps/4.3.lighting_maps_exercise2/colors.fs";
 
-const char *vertexLightCubeSource = "src/2.lighting/4.lighting_maps/4.1.lighting_maps_diffuse_map/light_cube.vs";
-const char *fragmentLightCubeSource = "src/2.lighting/4.lighting_maps/4.1.lighting_maps_diffuse_map/light_cube.fs";
+const char *vertexLightCubeSource = "src/2.lighting/4.lighting_maps/4.3.lighting_maps_exercise2/light_cube.vs";
+const char *fragmentLightCubeSource = "src/2.lighting/4.lighting_maps/4.3.lighting_maps_exercise2/light_cube.fs";
 
 // setting up camera system
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -189,9 +189,11 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     unsigned int diffuseMap = loadTexture(FileSystem::getPath("assets/img/container2.png").c_str());
+    unsigned int specularMap = loadTexture(FileSystem::getPath("assets/img/container2_specular.png").c_str());
 
     lightingShader.use();
     lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 1);
 
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -235,8 +237,13 @@ int main()
         lightingShader.setMat4("model", model);
 
         // render the cube
+        // bind diffuse map
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+        // bind specular map
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
