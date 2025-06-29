@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++-13 build active file",
+			"command": "/usr/bin/g++-13",
+			"args": [
+				"-fdiagnostics-color=always",
+				"/usr/include/glad.c",
+				"-g",
+				"${file}",
+				"-o",
+				"${workspaceFolder}/${fileBasenameNoExtension}.exe",
+				"-lglfw",
+				"-lGL",
+				"-lX11",
+				"-lpthread",
+				"-lXrandr",
+				"-lXi",
+				"-ldl"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/g++-13"
+		}
+	]
+}
